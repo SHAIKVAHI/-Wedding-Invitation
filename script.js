@@ -4,14 +4,48 @@
 (function ($) {
   "use strict";
   $(".untoldcoding-falling").sakura("start", {
-    blowAnimations: ["blow-soft-left"],
+    blowAnimations: ["blow-soft-left", "blow-medium-left", "blow-soft-right"],
     className: "sakura",
-    fallSpeed: 2.5,
-    maxSize: 12,
-    minSize: 9,
-    newOn: 250,
+    fallSpeed: 2.7,
+    maxSize: 13,
+    minSize: 8,
+    newOn: 300,
   });
 })(jQuery);
+
+function spawnWeddingParticle() {
+  const container = document.querySelector('.muslim-wedding-animation');
+  if (!container) return;
+
+  const types = ['crescent', 'star', 'glow'];
+  const type = types[Math.floor(Math.random() * types.length)];
+  const element = document.createElement('span');
+  element.className = type;
+  const size = Math.floor(Math.random() * 22) + 18;
+  const drift = Math.floor(Math.random() * 120) - 60;
+  const x = Math.floor(Math.random() * 100);
+  const duration = Math.random() * 6 + 8;
+  const delay = Math.random() * 3;
+
+  element.style.setProperty('--size', `${size}px`);
+  element.style.setProperty('--drift', `${drift}px`);
+  element.style.setProperty('--duration', `${duration}s`);
+  element.style.left = `${x}%`;
+  element.style.bottom = `-40px`;
+  element.style.animationDelay = `${delay}s`;
+  element.style.opacity = '0';
+
+  container.appendChild(element);
+
+  setTimeout(() => {
+    element.remove();
+  }, (duration + delay + 1) * 1000);
+}
+
+function startWeddingParticles() {
+  spawnWeddingParticle();
+  window.weddingParticleInterval = window.setInterval(spawnWeddingParticle, 700);
+}
 
 let musicStarted = false;
 let audioElement = null;
@@ -25,11 +59,32 @@ function startMusic() {
   audioElement.play()
     .then(() => {
       musicStarted = true;
-      console.log("🎵 Music started on first gesture");
+      console.log("🎵 Music started when invitation opened");
     })
     .catch((err) => {
-      console.log("Could not start music on gesture:", err);
+      console.log("Could not start music on open:", err);
     });
+}
+
+function animateCoverAndOpen() {
+  const cover = document.getElementById("invitation-cover");
+  if (!cover) return;
+
+  cover.classList.add("opening");
+  setTimeout(() => {
+    cover.classList.remove("opening");
+    openInvitation();
+  }, 350);
+}
+
+function openInvitation() {
+  const invitationContainer = document.getElementById("invitation-container");
+  if (!invitationContainer || !invitationContainer.classList.contains("closed")) return;
+
+  invitationContainer.classList.remove("closed");
+  invitationContainer.classList.add("open");
+  invitationContainer.setAttribute("aria-label", "Invitation opened");
+  startMusic();
 }
 
 function startMutedAudio() {
@@ -46,14 +101,20 @@ function startMutedAudio() {
   });
 }
 
-window.addEventListener("DOMContentLoaded", startMutedAudio);
+window.addEventListener("DOMContentLoaded", () => {
+  startMutedAudio();
+  startWeddingParticles();
 
-document.addEventListener("scroll", startMusic, { once: true });
-document.addEventListener("wheel", startMusic, { once: true });
-document.addEventListener("touchmove", startMusic, { once: true });
-document.addEventListener("mousemove", startMusic, { once: true });
-document.addEventListener("pointermove", startMusic, { once: true });
-document.addEventListener("keydown", startMusic, { once: true });
+  const invitationCover = document.getElementById("invitation-cover");
+  if (invitationCover) {
+    invitationCover.addEventListener("click", animateCoverAndOpen);
+    invitationCover.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        animateCoverAndOpen();
+      }
+    });
+  }
+});
 
 function pauseAudio() {
   document.getElementById("my_audio").pause();
