@@ -825,7 +825,7 @@
 
             .phone-container {
                 max-width: 100%;
-                height: auto;
+                height: 100vh;
                 min-height: 100vh;
                 border-radius: 24px;
             }
@@ -862,6 +862,44 @@
 
             .rsvp-section {
                 padding: 24px 18px;
+            }
+        }
+
+        /* Mobile tweaks to keep envelope visible and make countdown usable */
+        @media (max-width: 600px) {
+            .envelope-screen {
+                position: fixed;
+                top: 6%;
+                left: 50%;
+                transform: translateX(-50%);
+                width: calc(100% - 32px);
+                max-width: 720px;
+                height: auto;
+                padding: 18px;
+                border-radius: 18px;
+                z-index: 9999;
+            }
+
+            .phone-container.opened .envelope-screen,
+            .envelope-screen.opened {
+                transform: translate(-50%, -120%);
+            }
+
+            .phone-container {
+                overflow: hidden;
+            }
+
+            .countdown-grid {
+                grid-template-columns: repeat(2, minmax(80px, 1fr));
+                gap: 10px;
+            }
+
+            .countdown-value {
+                font-size: 1.6rem;
+            }
+
+            .family-details {
+                grid-template-columns: 1fr;
             }
         }
 
