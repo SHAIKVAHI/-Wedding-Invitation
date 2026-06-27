@@ -61,6 +61,14 @@
             z-index: 6;
         }
 
+        /* Full-screen variant for petals */
+        .global-petals {
+            position: fixed !important;
+            inset: 0 !important;
+            z-index: 6 !important;
+            pointer-events: none !important;
+        }
+
         .petal {
             position: absolute;
             width: 18px;
@@ -1032,36 +1040,37 @@
         }
     </style>
 </head>
+<body>
+    <div class="petal-container global-petals">
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+    </div>
+
     <audio id="invitationAudio" src="assets/mp3/song.mp3" preload="auto"></audio>
 
     <div class="phone-container">
-        <div class="petal-container">
-            <span class="petal"></span>
-            <span class="petal"></span>
-            <span class="petal"></span>
-            <span class="petal"></span>
-            <span class="petal"></span>
-            <span class="petal"></span>
-            <span class="petal"></span>
-            <span class="petal"></span>
-            <span class="petal"></span>
-            <span class="petal"></span>
-            <span class="petal"></span>
-            <span class="petal"></span>
-            <span class="petal"></span>
-            <span class="petal"></span>
-            <span class="petal"></span>
-            <span class="petal"></span>
-            <span class="petal"></span>
-            <span class="petal"></span>
-            <span class="petal"></span>
-            <span class="petal"></span>
-            <span class="petal"></span>
-            <span class="petal"></span>
-            <span class="petal"></span>
-            <span class="petal"></span>
-        </div>
-
         <div class="envelope-screen" id="envelopeScreen">
             <p>Tap to Reveal</p>
             <button class="wax-seal" type="button" onclick="revealInvitation()">V&S</button>
