@@ -199,6 +199,31 @@ img {
   /* margin: 0;
     padding: 0; */
   font-family: "Arvo", serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button,
+a,
+input,
+textarea,
+select {
+  outline: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+button:focus,
+a:focus,
+input:focus,
+textarea:focus,
+select:focus,
+button:active,
+a:active,
+input:active,
+textarea:active,
+select:active {
+  outline: none;
+  box-shadow: none;
 }
 
 body {
@@ -388,10 +413,6 @@ body {
   transform: translateX(-50%) scale(1.04);
 }
 
-.envelope-seal:focus {
-  outline: 3px solid rgba(255, 235, 190, 0.8);
-  outline-offset: 4px;
-}
 
 @keyframes coverPulse {
   0% { transform: scale(1); }
